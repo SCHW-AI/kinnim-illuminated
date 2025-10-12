@@ -192,6 +192,10 @@ body {
     display: none;
 }
 
+.phase2-container {
+    display: block;
+}
+
 .phase2-layout {
     display: grid;
     grid-template-columns: repeat(8, 60px);
