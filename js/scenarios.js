@@ -5,20 +5,26 @@ const birdsContainer = document.getElementById('birdsContainer');
 const resultsSection = document.getElementById('resultsSection');
 
 mixButton.addEventListener('click', function() {
-    // Disable button during animation
     mixButton.disabled = true;
     
-    // Add spinning animations
+    // Start spinning both birds
     chatas.classList.add('spinning-left');
     olah.classList.add('spinning-right');
     
-    // Wait for animation to complete (2 seconds)
+    // Fade out labels after 0.5s
     setTimeout(() => {
-        // Hide birds and button
-        birdsContainer.classList.add('hidden');
-        mixButton.classList.add('hidden');
-        
-        // Show results
+        chatas.querySelector('.bird-label').classList.add('fading');
+        olah.querySelector('.bird-label').classList.add('fading');
+    }, 500);
+    
+    // After spin completes (3s), show question marks briefly
+    setTimeout(() => {
+        chatas.querySelector('.bird-question').classList.add('show');
+        olah.querySelector('.bird-question').classList.add('show');
+    }, 3000);
+    
+    // Then show explanation after another second
+    setTimeout(() => {
         resultsSection.classList.add('show');
-    }, 2000);
+    }, 4000);
 });

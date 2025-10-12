@@ -60,6 +60,7 @@ body {
 /* Birds display */
 .birds-container {
     display: flex;
+    flex-direction: row;
     justify-content: center;
     gap: 100px;
     margin: 40px 0;
@@ -104,49 +105,52 @@ body {
     cursor: not-allowed;
 }
 
-/* Animation for spinning */
-@keyframes spin-around {
+@keyframes orbit-from-right {
     0% {
-        transform: translate(0, 0) rotate(0deg);
-    }
-    25% {
-        transform: translate(50px, -50px) rotate(90deg);
-    }
-    50% {
-        transform: translate(100px, 0) rotate(180deg);
-    }
-    75% {
-        transform: translate(50px, 50px) rotate(270deg);
+        transform: rotate(0deg) translateX(50px) rotate(0deg);
     }
     100% {
-        transform: translate(0, 0) rotate(360deg);
+        transform: rotate(1080deg) translateX(50px) rotate(-1080deg);
     }
 }
 
-@keyframes spin-around-reverse {
+@keyframes orbit-from-left {
     0% {
-        transform: translate(0, 0) rotate(0deg);
-    }
-    25% {
-        transform: translate(-50px, -50px) rotate(-90deg);
-    }
-    50% {
-        transform: translate(-100px, 0) rotate(-180deg);
-    }
-    75% {
-        transform: translate(-50px, 50px) rotate(-270deg);
+        transform: rotate(180deg) translateX(50px) rotate(-180deg);
     }
     100% {
-        transform: translate(0, 0) rotate(-360deg);
+        transform: rotate(1260deg) translateX(50px) rotate(-1260deg);
     }
 }
 
 .spinning-right {
-    animation: spin-around 2s ease-in-out;
+    transform-origin: -50%;
+    animation: orbit-from-right 3s ease-in;
 }
 
 .spinning-left {
-    animation: spin-around-reverse 2s ease-in-out;
+    transform-origin: 50px;
+    animation: orbit-from-left 3s ease-in;
+}
+
+@keyframes fade-out-label {
+    0% { opacity: 1; }
+    50% { opacity: 0; }
+    100% { opacity: 0; }
+}
+
+.bird-label.fading {
+    animation: fade-out-label 1.5s forwards;
+}
+
+.bird-question {
+    font-size: 48px;
+    margin-top: 10px;
+    display: none;
+}
+
+.bird-question.show {
+    display: block;
 }
 
 .results-section {
