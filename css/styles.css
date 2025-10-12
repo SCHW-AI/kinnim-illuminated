@@ -1,0 +1,180 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding: 40px;
+    background-color: #f5f5f5;
+}
+
+/* Navigation */
+.nav {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.nav a {
+    text-decoration: none;
+    color: #4CAF50;
+    font-size: 16px;
+}
+
+.nav a:hover {
+    text-decoration: underline;
+}
+
+/* Scenarios list on index page */
+.scenarios-list {
+    max-width: 600px;
+    margin: 40px auto;
+    text-align: left;
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.scenarios-list ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.scenarios-list li {
+    margin: 15px 0;
+}
+
+.scenarios-list a {
+    text-decoration: none;
+    color: #333;
+    font-size: 18px;
+    display: block;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.scenarios-list a:hover {
+    background-color: #4CAF50;
+    color: white;
+}
+
+/* Birds display */
+.birds-container {
+    display: flex;
+    justify-content: center;
+    gap: 100px;
+    margin: 40px 0;
+    min-height: 300px;
+}
+
+.bird-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.bird-image {
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
+}
+
+.bird-label {
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.mix-button {
+    padding: 15px 30px;
+    font-size: 18px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 20px 0;
+}
+
+.mix-button:hover {
+    background-color: #45a049;
+}
+
+.mix-button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+/* Animation for spinning */
+@keyframes spin-around {
+    0% {
+        transform: translate(0, 0) rotate(0deg);
+    }
+    25% {
+        transform: translate(50px, -50px) rotate(90deg);
+    }
+    50% {
+        transform: translate(100px, 0) rotate(180deg);
+    }
+    75% {
+        transform: translate(50px, 50px) rotate(270deg);
+    }
+    100% {
+        transform: translate(0, 0) rotate(360deg);
+    }
+}
+
+@keyframes spin-around-reverse {
+    0% {
+        transform: translate(0, 0) rotate(0deg);
+    }
+    25% {
+        transform: translate(-50px, -50px) rotate(-90deg);
+    }
+    50% {
+        transform: translate(-100px, 0) rotate(-180deg);
+    }
+    75% {
+        transform: translate(-50px, 50px) rotate(-270deg);
+    }
+    100% {
+        transform: translate(0, 0) rotate(-360deg);
+    }
+}
+
+.spinning-right {
+    animation: spin-around 2s ease-in-out;
+}
+
+.spinning-left {
+    animation: spin-around-reverse 2s ease-in-out;
+}
+
+.results-section {
+    display: none;
+    margin-top: 40px;
+    padding: 30px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.results-section.show {
+    display: block;
+}
+
+.result-title {
+    font-size: 28px;
+    font-weight: bold;
+    color: #d32f2f;
+    margin-bottom: 20px;
+}
+
+.result-explanation {
+    font-size: 18px;
+    line-height: 1.6;
+    text-align: center;
+}
+
+.hidden {
+    display: none;
+}
