@@ -241,3 +241,108 @@ body {
 .bird-wrapper.joining {
     animation: olah-joins-group 1.5s ease-in-out forwards;
 }
+
+/* Scenario 2 specific styles */
+.birds-container-scenario2 {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 150px;
+    margin: 40px 0;
+    min-height: 350px;
+}
+
+.ken-container {
+    border: 3px solid #666;
+    border-radius: 15px;
+    padding: 30px;
+    background-color: #f9f9f9;
+    transition: border-color 0.5s;
+}
+
+.ken-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #666;
+    text-align: center;
+}
+
+.ken-subtitle {
+    font-size: 14px;
+    color: #888;
+    margin-bottom: 20px;
+    text-align: center;
+    font-style: italic;
+}
+
+.ken-birds {
+    display: flex;
+    gap: 60px;
+    justify-content: center;
+}
+
+.dual-label {
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 10px;
+    color: #333;
+}
+
+.defined-bird {
+    position: relative;
+}
+
+.defined-label {
+    font-size: 14px;
+    color: #888;
+    font-style: italic;
+    margin-top: 5px;
+}
+
+/* Mixing animations for scenario 2 */
+@keyframes mix-together {
+    0% { transform: translateX(0); opacity: 1; }
+    50% { transform: translateX(0); opacity: 0.3; }
+    100% { transform: translateX(0); opacity: 1; }
+}
+
+.mixing {
+    animation: mix-together 2s ease-in-out forwards;
+}
+
+.border-fading {
+    border-color: transparent !important;
+    background-color: transparent !important;
+}
+
+.reasoning-list {
+    list-style-type: disc;
+    text-align: left;
+    max-width: 700px;
+    margin: 15px auto;
+    padding-left: 40px;
+}
+
+.reasoning-list li {
+    margin: 8px 0;
+    line-height: 1.5;
+}
+
+.result-explanation p {
+    margin: 15px 0;
+}
+
+.result-explanation strong {
+    color: #333;
+}
+
+/* Phase 2 section (for switch button) */
+.phase2-section {
+    margin: 40px 0;
+}
+
+#switchButton {
+    display: none;
+}
