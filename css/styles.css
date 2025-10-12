@@ -191,3 +191,69 @@ body {
 .hidden {
     display: none;
 }
+
+.phase2-layout {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 40px auto;
+    max-width: 1000px;
+    gap: 60px;
+}
+
+.many-chataos-container {
+    display: grid;
+    grid-template-columns: repeat(5, 60px);
+    gap: 15px;
+    justify-items: center;
+}
+
+.many-chataos-container .bird-wrapper {
+    width: 60px;
+}
+
+.many-chataos-container .bird-image {
+    width: 50px;
+    height: 50px;
+}
+
+.many-chataos-container .bird-label {
+    font-size: 12px;
+    margin-top: 3px;
+}
+
+.many-chataos-container .bird-question {
+    font-size: 20px;
+    margin-top: 3px;
+}
+
+.single-olah-container {
+    display: flex;
+    align-items: center;
+}
+
+.single-olah-container .bird-wrapper {
+    width: 80px;
+}
+
+.single-olah-container .bird-image {
+    width: 60px;
+    height: 60px;
+}
+
+.single-olah-container .bird-label {
+    font-size: 16px;
+}
+
+.single-olah-container .bird-question {
+    font-size: 28px;
+}
+
+@keyframes olah-joins-group {
+    0% { transform: translateX(0); opacity: 1; }
+    100% { transform: translateX(-350px); opacity: 0.8; }
+}
+
+.single-olah-container .bird-wrapper.joining {
+    animation: olah-joins-group 1.5s ease-in-out forwards;
+}
