@@ -7,24 +7,28 @@ const resultsSection = document.getElementById('resultsSection');
 mixButton.addEventListener('click', function() {
     mixButton.disabled = true;
     
-    // Start spinning both birds
-    chatas.classList.add('spinning-left');
-    olah.classList.add('spinning-right');
+    // Move birds to center
+    chatas.classList.add('moving-to-center-left');
+    olah.classList.add('moving-to-center-right');
     
-    // Fade out labels after 0.5s
-    setTimeout(() => {
-        chatas.querySelector('.bird-label').classList.add('fading');
-        olah.querySelector('.bird-label').classList.add('fading');
-    }, 500);
+    // Fade out labels as they move
+    chatas.querySelector('.bird-label').classList.add('fading');
+    olah.querySelector('.bird-label').classList.add('fading');
     
-    // After spin completes (3s), show question marks briefly
+    // After they meet (1s), move them back
     setTimeout(() => {
+        chatas.classList.remove('moving-to-center-left');
+        chatas.classList.add('moving-back-left');
+        olah.classList.remove('moving-to-center-right');
+        olah.classList.add('moving-back-right');
+        
+        // Show question marks as they separate
         chatas.querySelector('.bird-question').classList.add('show');
         olah.querySelector('.bird-question').classList.add('show');
-    }, 3000);
+    }, 1000);
     
-    // Then show explanation after another second
+    // Show results after they've separated (2s total)
     setTimeout(() => {
         resultsSection.classList.add('show');
-    }, 4000);
+    }, 2000);
 });

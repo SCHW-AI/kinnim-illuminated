@@ -61,6 +61,7 @@ body {
 .birds-container {
     display: flex;
     flex-direction: row;
+    flex-wrap: nowrap;
     justify-content: center;
     gap: 100px;
     margin: 40px 0;
@@ -105,32 +106,40 @@ body {
     cursor: not-allowed;
 }
 
-@keyframes orbit-from-right {
-    0% {
-        transform: rotate(0deg) translateX(50px) rotate(0deg);
-    }
-    100% {
-        transform: rotate(1080deg) translateX(50px) rotate(-1080deg);
-    }
+@keyframes move-to-center-from-left {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(125px); }
 }
 
-@keyframes orbit-from-left {
-    0% {
-        transform: rotate(180deg) translateX(50px) rotate(-180deg);
-    }
-    100% {
-        transform: rotate(1260deg) translateX(50px) rotate(-1260deg);
-    }
+@keyframes move-to-center-from-right {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-125px); }
 }
 
-.spinning-right {
-    transform-origin: -50%;
-    animation: orbit-from-right 3s ease-in;
+@keyframes move-back-to-left {
+    0% { transform: translateX(125px); }
+    100% { transform: translateX(0); }
 }
 
-.spinning-left {
-    transform-origin: 50px;
-    animation: orbit-from-left 3s ease-in;
+@keyframes move-back-to-right {
+    0% { transform: translateX(-125px); }
+    100% { transform: translateX(0); }
+}
+
+.moving-to-center-left {
+    animation: move-to-center-from-left 1s ease-in-out forwards;
+}
+
+.moving-to-center-right {
+    animation: move-to-center-from-right 1s ease-in-out forwards;
+}
+
+.moving-back-left {
+    animation: move-back-to-left 1s ease-in-out forwards;
+}
+
+.moving-back-right {
+    animation: move-back-to-right 1s ease-in-out forwards;
 }
 
 @keyframes fade-out-label {
