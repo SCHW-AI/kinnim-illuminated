@@ -40,41 +40,67 @@ const manyBirdsContainer = document.getElementById('manyBirdsContainer');
 const mixManyButton = document.getElementById('mixManyButton');
 const results2Section = document.getElementById('results2Section');
 
-// Show continue button after first results
-setTimeout(() => {
-    resultsSection.classList.add('show');
-    setTimeout(() => {
-        phase2Section.classList.add('show');
-    }, 500);
-}, 2000);
 
 // Generate 25 chatas birds
 continueButton.addEventListener('click', function() {
     phase2Container.classList.add('show');
     continueButton.style.display = 'none';
     
-    // Create 25 chatas birds
-    for (let i = 0; i < 25; i++) {
-        const birdWrapper = document.createElement('div');
-        birdWrapper.className = 'bird-wrapper';
-        
-        const birdImg = document.createElement('img');
-        birdImg.src = '../images/bird.png';
-        birdImg.alt = 'חטאת';
-        birdImg.className = 'bird-image';
-        
-        const birdLabel = document.createElement('div');
-        birdLabel.className = 'bird-label';
-        birdLabel.textContent = 'חטאת';
-        
-        const birdQuestion = document.createElement('div');
-        birdQuestion.className = 'bird-question';
-        birdQuestion.textContent = '?';
-        
-        birdWrapper.appendChild(birdImg);
-        birdWrapper.appendChild(birdLabel);
-        birdWrapper.appendChild(birdQuestion);
-        manyChataosContainer.appendChild(birdWrapper);
+    // Create 8×5 grid = 40 positions
+    for (let row = 0; row < 5; row++) {
+        for (let col = 0; col < 8; col++) {
+            const birdWrapper = document.createElement('div');
+            birdWrapper.className = 'bird-wrapper';
+            
+            // Position (2,2) is empty for olah to slide into (0-indexed, so row 2 col 2 = visual 3,3)
+            // Position (7,2) has the olah (0-indexed, so row 2 col 7 = visual 3,8)
+            // Columns 0-4 rows 0-4 (except 2,2) have chatas
+            // Rest are invisible
+            
+            if (col === 7 && row === 2) {
+                // This is the olah position
+                birdWrapper.id = 'gridOlah';
+                const birdImg = document.createElement('img');
+                birdImg.src = '../images/bird.png';
+                birdImg.alt = 'עולה';
+                birdImg.className = 'bird-image';
+                
+                const birdLabel = document.createElement('div');
+                birdLabel.className = 'bird-label';
+                birdLabel.textContent = 'עולה';
+                
+                const birdQuestion = document.createElement('div');
+                birdQuestion.className = 'bird-question';
+                birdQuestion.textContent = '?';
+                
+                birdWrapper.appendChild(birdImg);
+                birdWrapper.appendChild(birdLabel);
+                birdWrapper.appendChild(birdQuestion);
+            } else if (col <= 4 && !(col === 2 && row === 2)) {
+                // Chatas in first 5 columns, except the gap at (2,2)
+                const birdImg = document.createElement('img');
+                birdImg.src = '../images/bird.png';
+                birdImg.alt = 'חטאת';
+                birdImg.className = 'bird-image';
+                
+                const birdLabel = document.createElement('div');
+                birdLabel.className = 'bird-label';
+                birdLabel.textContent = 'חטאת';
+                
+                const birdQuestion = document.createElement('div');
+                birdQuestion.className = 'bird-question';
+                birdQuestion.textContent = '?';
+                
+                birdWrapper.appendChild(birdImg);
+                birdWrapper.appendChild(birdLabel);
+                birdWrapper.appendChild(birdQuestion);
+            } else {
+                // Invisible placeholder
+                birdWrapper.classList.add('invisible');
+            }
+            
+            manyChataosContainer.appendChild(birdWrapper);
+        }
     }
     
     phase2Container.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -83,21 +109,20 @@ continueButton.addEventListener('click', function() {
 mixManyButton.addEventListener('click', function() {
     mixManyButton.disabled = true;
     
-    // Move the olah into the group
-    const singleOlah = document.getElementById('singleOlah');
-    singleOlah.classList.add('joining');
+    // Move the olah into the gap
+    const gridOlah = document.getElementById('gridOlah');
+    gridOlah.classList.add('joining');
     
-    // Fade out all labels as olah moves
+    // Fade out all labels
     setTimeout(() => {
-        const allLabels = document.querySelectorAll('#manyChataosContainer .bird-label, #singleOlah .bird-label');
+        const allLabels = document.querySelectorAll('.phase2-layout .bird-label');
         allLabels.forEach(label => label.classList.add('fading'));
     }, 500);
     
     // Show all question marks
     setTimeout(() => {
-        const allQuestions = manyChataosContainer.querySelectorAll('.bird-question');
+        const allQuestions = document.querySelectorAll('.phase2-layout .bird-question');
         allQuestions.forEach(q => q.classList.add('show'));
-        singleOlah.querySelector('.bird-question').classList.add('show');
     }, 2000);
     
     // Show results
