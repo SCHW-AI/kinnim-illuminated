@@ -1,4 +1,31 @@
-import { EN_TRACKING, LABEL_HALO, type MeasureLabel } from './layout';
+import { EN_TRACKING, LABEL_HALO, TYPE, type MeasureLabel } from './layout';
+
+/** The label font stacks, as the page resolves them (`--font-hebrew`: Hadasim CLM first). */
+function labelFamilies() {
+  const root = getComputedStyle(document.documentElement);
+  return {
+    he: root.getPropertyValue('--font-hebrew').trim() || 'serif',
+    en: root.getPropertyValue('--font-latin').trim() || 'serif',
+  };
+}
+
+/**
+ * Asks the browser to load the faces labels are drawn in (Hadasim CLM at the
+ * label weights in `TYPE`, EB Garamond italic 400), resolving once they are
+ * ready; undefined where
+ * there is no `document.fonts` (jsdom, SSR). A canvas never triggers a web
+ * font load itself, so without this the first measurement can be of a
+ * fallback.
+ */
+export function loadLabelFonts(): Promise<unknown> | undefined {
+  if (typeof document === 'undefined' || !('fonts' in document)) return undefined;
+  const family = labelFamilies();
+  const weights = new Set([TYPE.container.weight, TYPE.bird.weight]);
+  return Promise.all([
+    ...[...weights].map((weight) => document.fonts.load(`${weight} 16px ${family.he}`, 'אָ')),
+    document.fonts.load(`italic 400 16px ${family.en}`, 'A'),
+  ]);
+}
 
 /**
  * A `MeasureLabel` from the browser's own text metrics: canvas `measureText`
@@ -17,11 +44,7 @@ export function createCanvasMeasurer(): MeasureLabel | undefined {
   if (!ctx) return undefined;
   ctx.direction = 'ltr';
   ctx.textAlign = 'left';
-  const root = getComputedStyle(document.documentElement);
-  const family = {
-    he: root.getPropertyValue('--font-hebrew').trim() || 'serif',
-    en: root.getPropertyValue('--font-latin').trim() || 'serif',
-  };
+  const family = labelFamilies();
   const cache = new Map<string, number>();
   return ({ text, lang, size, weight }) => {
     const font = `${lang === 'en' ? 'italic ' : ''}${weight} ${size}px ${family[lang]}`;

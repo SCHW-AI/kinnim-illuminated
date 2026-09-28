@@ -107,7 +107,7 @@ No React imports under `engine/`, enforced by a lint rule.
 ### Phase 3: Stage and visual system (`src/stage`, `src/theme`) · parallel with Phase 2
 **Scope:**
 - Design tokens: an "illuminated manuscript" direction of parchment, ink and gold leaf, with a clear chatas/olah colour pair; light and dark.
-- Fonts: Hebrew serif (e.g. Frank Ruhl Libre) and Latin serif.
+- Fonts: Hebrew (Hadasim CLM, from the Culmus project) and Latin serif (EB Garamond).
 - A new tintable SVG bird. Two or three candidate styles are shown side by side in the playground for the author to choose from; the old PNG is not a reference.
 - `Bird`, `Container`, a layout engine, and Motion transitions keyed by bird id.
 - Visual states: labelled, `?` (safek), kasher glow, pasul/yamus dim.

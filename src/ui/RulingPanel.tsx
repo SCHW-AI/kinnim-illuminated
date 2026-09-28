@@ -3,11 +3,16 @@ import type { Ruling } from '../engine';
 import { Panel } from './Panel';
 import { RichText } from './RichText';
 
-const COUNT_LABEL: Record<string, { en: string; he: string }> = {
-  kasher: { en: 'kasher', he: 'כשר' },
-  pasul: { en: 'pasul', he: 'פסול' },
-  safek: { en: 'safek', he: 'ספק' },
-  yamus: { en: 'yamus', he: 'ימות' },
+/**
+ * Each count chip reads as the number and the Hebrew status alone, e.g.
+ * "2 ימות": no transliteration, in the text or the accessible name.
+ */
+const COUNT_LABEL: Record<string, string> = {
+  alive: 'חי',
+  kasher: 'כשר',
+  pasul: 'פסול',
+  safek: 'ספק',
+  yamus: 'ימות',
 };
 
 /** The ruling: verdict, tallies and reasons, then any actions (`children`). */
@@ -22,11 +27,13 @@ export function RulingPanel({ ruling, children }: { ruling: Ruling; children?: R
             const label = COUNT_LABEL[key];
             return (
               <li key={key} className={`kn-badge kn-count-${key}`}>
-                <span className="font-semibold tabular-nums">{n}</span> {label?.en ?? key}
-                {label && (
-                  <bdi lang="he" dir="rtl" className="opacity-80">
-                    {label.he}
+                <span className="font-semibold tabular-nums">{n}</span>{' '}
+                {label ? (
+                  <bdi lang="he" dir="rtl">
+                    {label}
                   </bdi>
+                ) : (
+                  key
                 )}
               </li>
             );

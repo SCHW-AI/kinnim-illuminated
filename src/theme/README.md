@@ -129,11 +129,31 @@ backgrounds", they are the next thing to flatten.
 ## Type
 
 - **EB Garamond** (Latin) is the body and UI face. Italic is used for captions.
-- **Frank Ruhl Libre** (Hebrew) is applied to `:lang(he)` and `[dir=rtl]`, and
-  sized up 6 % outside SVG to sit with Garamond's x-height. The Latin stack also
-  falls back to Frank Ruhl Libre, so stray Hebrew renders correctly.
-- Only the `latin` / `hebrew` subsets are loaded (weights 400/500/600 and
-  400 italic for Garamond; 400/500/700 for Frank Ruhl Libre).
+- **Hadasim CLM** (Hebrew, from the Culmus project) is every piece of Hebrew:
+  the mishnah text, headings, tabs, the logo, rulings, count chips and the
+  stage's SVG labels. It is self-hosted from `fonts/hadasim-clm/` (the whole
+  fonts as WOFF2; source, version and licence in its README) and applied to
+  `:lang(he)` and `[dir=rtl]`. `--font-hebrew` is
+  `'Hadasim CLM', 'EB Garamond', serif`; the faces' `unicode-range` sends Latin
+  letters in a Hebrew run on to Garamond. The Latin stack also falls back to
+  Hadasim CLM, so stray Hebrew renders correctly.
+- **Two real weights.** Regular (400) and Bold (700) are shipped, so nothing is
+  synthesized: Hebrew inherits its context's weight, 400 and 500 set the
+  Regular and 600 up the Bold (the Hebrew in a semibold rich-text heading is
+  bold). Bold is used on purpose in three places only: the gilded opening word
+  of the mishnah, the "נניח" of the Suppose chip, and the ח/ע emblems on the
+  stage. Stage labels stay Regular at both sizes; a bold 13 px label repeated
+  across a grid of birds is too heavy.
+- **Always upright.** Hebrew has `font-style: normal`, even inside italic
+  English (captions, the English line of a stage label), and the obliques are
+  not shipped.
+- **Sizes.** Hadasim CLM's letters stand 0.572 em tall, between Garamond's
+  x-height (0.405 em) and capitals (0.653 em), and its colour is darker than
+  Garamond's, so inline Hebrew is set at 1 em with no rescaling. The mishnah
+  panel is 1.45 rem (1.7 rem from 640 px) with a line height of 1.9 for the
+  marks above and below the letters. Stage labels are 16 px (captions) and
+  13 px (birds).
+- Garamond loads its `latin` subset only (weights 400/500/600 and 400 italic).
 
 ## Open questions for the author
 

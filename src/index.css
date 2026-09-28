@@ -2,9 +2,7 @@
 @import '@fontsource/eb-garamond/latin-400-italic.css';
 @import '@fontsource/eb-garamond/latin-500.css';
 @import '@fontsource/eb-garamond/latin-600.css';
-@import '@fontsource/frank-ruhl-libre/hebrew-400.css';
-@import '@fontsource/frank-ruhl-libre/hebrew-500.css';
-@import '@fontsource/frank-ruhl-libre/hebrew-700.css';
+@import './theme/fonts/hadasim-clm/hadasim-clm.css';
 @import 'tailwindcss';
 @import './theme/tokens.css';
 
@@ -32,14 +30,20 @@
     background-attachment: fixed;
   }
 
-  /* Hebrew: Frank Ruhl Libre, a touch larger to sit with Garamond's x-height. */
+  /*
+   * Hebrew: Hadasim CLM, in its two real weights. Weight is inherited: 400
+   * and 500 set the Regular, 600 and up the Bold, so nothing is synthesized.
+   * Hebrew is always upright, even inside italic English: Hebrew has no
+   * italic, and the site ships no oblique.
+   *
+   * Inline Hebrew is not rescaled: at 1 em Hadasim's letters stand 0.572 em,
+   * between Garamond's x-height (0.405 em) and capitals (0.653 em), and its
+   * darker colour already holds its own beside the lighter Latin.
+   */
   :lang(he),
   [dir='rtl'] {
     font-family: var(--font-hebrew);
-  }
-
-  :where(:lang(he), [dir='rtl']):not(svg *) {
-    font-size: 1.06em;
+    font-style: normal;
   }
 
   :focus-visible {
@@ -124,9 +128,10 @@
       inset 0 0 0 5px color-mix(in oklab, var(--kn-gold) 55%, transparent),
       0 14px 34px -24px rgb(60 40 10 / 0.5);
   }
+  /* Vocalized Hebrew: the line height leaves room for the marks above and below. */
   .kn-mishnah-text {
-    font-size: 1.35rem;
-    line-height: 2;
+    font-size: 1.45rem;
+    line-height: 1.9;
     text-align: start;
     color: var(--kn-ink);
   }
@@ -135,13 +140,13 @@
       padding: 1.4rem 2rem 1.75rem;
     }
     .kn-mishnah-text {
-      font-size: 1.6rem;
+      font-size: 1.7rem;
       text-align: justify;
       text-align-last: start;
     }
   }
   .kn-opening-word {
-    font-size: 1.2em;
+    font-size: 1.15em;
     font-weight: 700;
     color: var(--kn-gilt);
   }
@@ -414,8 +419,7 @@
     font-style: italic;
   }
   .kn-suppose :lang(he) {
-    font-style: normal;
-    font-weight: 500;
+    font-weight: 700;
   }
   .kn-card-explore {
     border-color: color-mix(in oklab, var(--kn-hypothetical) 55%, var(--kn-parchment-edge));

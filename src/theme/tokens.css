@@ -172,8 +172,8 @@
 }
 
 @theme {
-  --font-latin: 'EB Garamond', 'Frank Ruhl Libre', Georgia, 'Times New Roman', serif;
-  --font-hebrew: 'Frank Ruhl Libre', 'EB Garamond', 'Times New Roman', serif;
+  --font-latin: 'EB Garamond', 'Hadasim CLM', Georgia, 'Times New Roman', serif;
+  --font-hebrew: 'Hadasim CLM', 'EB Garamond', serif;
   --font-serif: var(--font-latin);
 }
 

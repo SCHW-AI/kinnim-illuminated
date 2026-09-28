@@ -1,0 +1,33 @@
+/*
+ * Hadasim CLM 0.140 (the Culmus project), self-hosted. See README.md, LICENSE
+ * and GNU-GPL.
+ *
+ * Two real weights: Regular (400) and Bold (700). Each file is the complete
+ * font (every glyph and OpenType table, including the GPOS mark positioning
+ * that places the nikud), only recompressed as WOFF2.
+ *
+ * `unicode-range` is the fonts' own Hebrew, plus the spaces, digits and
+ * punctuation Hebrew text uses. Latin letters inside a Hebrew run fall through
+ * to EB Garamond (the next family in `--font-hebrew`).
+ */
+@font-face {
+  font-family: 'Hadasim CLM';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('./HadasimCLM-Regular.woff2') format('woff2');
+  unicode-range:
+    U+0020-0040, U+005B-0060, U+007B-007E, U+00A0, U+034F, U+0591-05C7, U+05D0-05EA, U+05F0-05F4,
+    U+200C-200F, U+2013-2015, U+2018-201A, U+201C-201E, U+2026, U+20AA, U+25CC, U+FB1D-FB4F;
+}
+
+@font-face {
+  font-family: 'Hadasim CLM';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('./HadasimCLM-Bold.woff2') format('woff2');
+  unicode-range:
+    U+0020-0040, U+005B-0060, U+007B-007E, U+00A0, U+034F, U+0591-05C7, U+05D0-05EA, U+05F0-05F4,
+    U+200C-200F, U+2013-2015, U+2018-201A, U+201C-201E, U+2026, U+20AA, U+25CC, U+FB1D-FB4F;
+}

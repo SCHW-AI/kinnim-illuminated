@@ -38,7 +38,21 @@ export function Shell({ children }: { children: ReactNode }) {
           >
             {textSource}
           </a>
-          .
+          . Hebrew font: Hadasim CLM, from the{' '}
+          <a
+            href="https://culmus.sourceforge.io/"
+            className="text-ink-soft underline decoration-parchment-edge underline-offset-4 hover:decoration-gold"
+          >
+            Culmus project
+          </a>{' '}
+          (GPL-2 with font exception;{' '}
+          <a
+            href="https://sourceforge.net/projects/culmus/files/culmus/0.140/"
+            className="text-ink-soft underline decoration-parchment-edge underline-offset-4 hover:decoration-gold"
+          >
+            source
+          </a>
+          ).
         </p>
       </footer>
     </div>

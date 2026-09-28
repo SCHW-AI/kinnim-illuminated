@@ -13,7 +13,7 @@ import {
   type Rect,
   type SceneLayout,
 } from './layout';
-import { createCanvasMeasurer } from './measureLabel';
+import { createCanvasMeasurer, loadLabelFonts } from './measureLabel';
 import type { Scene } from './scene';
 import { useTweened } from './useTweened';
 
@@ -65,8 +65,10 @@ function useLabelMeasurer(): MeasureLabel | undefined {
     const refresh = () => {
       if (live) setMeasure(() => createCanvasMeasurer());
     };
-    // `ready` covers fonts that loaded between the first measurement and now.
+    // `ready` covers fonts that loaded between the first measurement and now;
+    // `loadLabelFonts` makes sure Hadasim CLM loads even before any Hebrew is drawn.
     void fonts.ready.then(refresh);
+    void loadLabelFonts()?.then(refresh, () => undefined);
     fonts.addEventListener('loadingdone', refresh);
     return () => {
       live = false;
