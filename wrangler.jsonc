@@ -8,4 +8,11 @@
     "directory": "./dist",
     "not_found_handling": "single-page-application",
   },
+  // Keep the workers.dev address live alongside the custom domains.
+  "workers_dev": true,
+  // Custom domains: Cloudflare creates the DNS records and certificates.
+  "routes": [
+    { "pattern": "kinnim-illuminated.com", "custom_domain": true },
+    { "pattern": "www.kinnim-illuminated.com", "custom_domain": true },
+  ],
 }

@@ -9,7 +9,7 @@ only.
 React 19 + TypeScript on Vite, deployed as a Cloudflare Workers static-assets
 site (no Worker script).
 
-**Live site:** <https://kinnim-illuminated.azlotowitz.workers.dev>
+**Live site:** <https://kinnim-illuminated.com> (also at <https://kinnim-illuminated.azlotowitz.workers.dev>)
 
 ## Who made what
 
@@ -72,7 +72,8 @@ Docs:
 
 ## Deploying
 
-The site is deployed to <https://kinnim-illuminated.azlotowitz.workers.dev>. A
+The site is deployed to <https://kinnim-illuminated.com> (and www), set as custom
+domains in `wrangler.jsonc`, and to <https://kinnim-illuminated.azlotowitz.workers.dev>. A
 deploy needs a Cloudflare login on that account:
 
 ```sh
