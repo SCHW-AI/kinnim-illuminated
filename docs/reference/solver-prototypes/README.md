@@ -1,0 +1,1 @@
+Throwaway Python prototypes used to verify the Kinnim ch. 1-2 rulings in ../kinnim-ch1-2.md (possible-worlds + adversary solver and the 2:3 counting rule); not production code. Run t23.py before t23b.py (it writes w23r1.pkl).

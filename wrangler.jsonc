@@ -1,0 +1,11 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "kinnim-illuminated",
+  "compatibility_date": "2026-09-01",
+  // Assets-only Worker: no script. Unknown paths fall back to index.html so
+  // client-side routes (e.g. /mishnah/1-2) survive a refresh.
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "single-page-application",
+  },
+}

@@ -1,0 +1,489 @@
+@import '@fontsource/eb-garamond/latin-400.css';
+@import '@fontsource/eb-garamond/latin-400-italic.css';
+@import '@fontsource/eb-garamond/latin-500.css';
+@import '@fontsource/eb-garamond/latin-600.css';
+@import '@fontsource/frank-ruhl-libre/hebrew-400.css';
+@import '@fontsource/frank-ruhl-libre/hebrew-500.css';
+@import '@fontsource/frank-ruhl-libre/hebrew-700.css';
+@import 'tailwindcss';
+@import './theme/tokens.css';
+
+@layer base {
+  html {
+    background-color: var(--kn-parchment);
+    color: var(--kn-ink);
+    font-family: var(--font-latin);
+    font-size: 1.0625rem;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    min-height: 100vh;
+    background-color: var(--kn-parchment);
+    /* Vellum: a soft vignette and a faint fibre grain. */
+    background-image:
+      radial-gradient(
+        120% 90% at 50% 0%,
+        transparent 55%,
+        color-mix(in oklab, var(--kn-parchment-edge) 35%, transparent) 100%
+      ),
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .35 0 0 0 0 .27 0 0 0 0 .16 0 0 0 .55 -.2'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    background-attachment: fixed;
+  }
+
+  /* Hebrew: Frank Ruhl Libre, a touch larger to sit with Garamond's x-height. */
+  :lang(he),
+  [dir='rtl'] {
+    font-family: var(--font-hebrew);
+  }
+
+  :where(:lang(he), [dir='rtl']):not(svg *) {
+    font-size: 1.06em;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--kn-focus);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--kn-gold-bright) 45%, transparent);
+  }
+}
+
+/* Stage: colours cross-fade when a bird's tint or status changes. */
+.kn-stage :where(path, circle, ellipse, rect, polygon, line) {
+  transition:
+    fill 0.6s ease,
+    stroke 0.6s ease,
+    opacity 0.4s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kn-stage :where(path, circle, ellipse, rect, polygon, line) {
+    transition: none;
+  }
+}
+
+/* Phase 4 — app shell and mishnah page */
+
+/* Gilt text: gold that stays legible on parchment in both themes. */
+:root {
+  --kn-gilt: var(--kn-gold-deep);
+  --kn-on-gold: #2b1d08;
+}
+:root[data-theme='dark'] {
+  --kn-gilt: var(--kn-gold-bright);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --kn-gilt: var(--kn-gold-bright);
+  }
+}
+
+@layer components {
+  .kn-card {
+    border: 1px solid var(--kn-parchment-edge);
+    border-radius: 0.6rem;
+    background: color-mix(in oklab, var(--kn-parchment-deep) 45%, transparent);
+    box-shadow:
+      0 1px 0 var(--kn-parchment-edge),
+      0 12px 30px -20px rgb(60 40 10 / 0.4);
+  }
+
+  a.kn-card {
+    color: inherit;
+    transition:
+      border-color 0.2s ease,
+      transform 0.2s ease;
+  }
+  a.kn-card:hover {
+    border-color: var(--kn-gold);
+    transform: translateY(-1px);
+  }
+  .kn-card-illustrated {
+    border-color: color-mix(in oklab, var(--kn-gold) 70%, var(--kn-parchment-edge));
+    background: color-mix(in oklab, var(--kn-gold-bright) 12%, var(--kn-parchment-deep));
+    box-shadow:
+      inset 0 0 0 3px var(--kn-parchment),
+      inset 0 0 0 4px color-mix(in oklab, var(--kn-gold) 45%, transparent),
+      0 12px 30px -20px rgb(60 40 10 / 0.4);
+  }
+
+  /* The mishnah text: a folio framed by a double gold rule. */
+  .kn-folio {
+    --kn-folio-bg: color-mix(in oklab, var(--kn-parchment-deep) 55%, var(--kn-parchment));
+    border-radius: 0.35rem;
+    padding: 1rem 1.1rem 1.25rem;
+    background: var(--kn-folio-bg);
+    box-shadow:
+      inset 0 0 0 1px var(--kn-gold),
+      inset 0 0 0 4px var(--kn-folio-bg),
+      inset 0 0 0 5px color-mix(in oklab, var(--kn-gold) 55%, transparent),
+      0 14px 34px -24px rgb(60 40 10 / 0.5);
+  }
+  .kn-mishnah-text {
+    font-size: 1.35rem;
+    line-height: 2;
+    text-align: start;
+    color: var(--kn-ink);
+  }
+  @media (min-width: 640px) {
+    .kn-folio {
+      padding: 1.4rem 2rem 1.75rem;
+    }
+    .kn-mishnah-text {
+      font-size: 1.6rem;
+      text-align: justify;
+      text-align-last: start;
+    }
+  }
+  .kn-opening-word {
+    font-size: 1.2em;
+    font-weight: 700;
+    color: var(--kn-gilt);
+  }
+
+  .kn-rule {
+    width: 9rem;
+    height: 0.6rem;
+    background:
+      radial-gradient(circle, var(--kn-gold) 0 2.5px, transparent 3px) center / 0.6rem 0.6rem
+        no-repeat,
+      linear-gradient(var(--kn-gold), var(--kn-gold)) center / 100% 1px no-repeat;
+  }
+
+  .kn-link {
+    color: var(--kn-ink-soft);
+    text-decoration: underline;
+    text-decoration-color: var(--kn-parchment-edge);
+    text-underline-offset: 4px;
+  }
+  .kn-link:hover {
+    color: var(--kn-ink);
+    text-decoration-color: var(--kn-gold);
+  }
+
+  .kn-he-gloss {
+    color: var(--kn-gilt);
+  }
+  .kn-button-primary .kn-he-gloss,
+  .kn-segment input:checked + span .kn-he-gloss {
+    color: inherit;
+  }
+
+  /* Buttons */
+  .kn-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    min-height: 2.5rem;
+    padding: 0.35rem 0.9rem;
+    border: 1px solid var(--kn-parchment-edge);
+    border-radius: 999px;
+    background: var(--kn-parchment);
+    color: var(--kn-ink);
+    line-height: 1.2;
+    text-decoration: none;
+    transition:
+      border-color 0.2s ease,
+      background-color 0.2s ease;
+  }
+  .kn-button:hover:not(:disabled) {
+    border-color: var(--kn-gold);
+  }
+  .kn-button:disabled {
+    opacity: 0.45;
+    cursor: default;
+  }
+  .kn-button-quiet {
+    background: transparent;
+    color: var(--kn-ink-soft);
+  }
+  .kn-button-primary {
+    position: relative;
+    overflow: hidden;
+    border-color: var(--kn-gold-deep);
+    background: linear-gradient(
+      180deg,
+      color-mix(in oklab, var(--kn-gold-bright) 70%, var(--kn-gold)),
+      var(--kn-gold)
+    );
+    color: var(--kn-on-gold);
+    font-weight: 500;
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.35),
+      0 6px 16px -10px rgb(90 60 10 / 0.8);
+  }
+  .kn-button-primary:hover:not(:disabled) {
+    border-color: var(--kn-ink);
+  }
+  /* A thin bar that fills during the beat before an auto step plays. */
+  .kn-auto-pending::after {
+    content: '';
+    position: absolute;
+    inset: auto 0 0 0;
+    height: 3px;
+    background: var(--kn-gold-deep);
+    transform-origin: left;
+    animation: kn-fill 1.2s linear forwards;
+  }
+  @keyframes kn-fill {
+    from {
+      transform: scaleX(0);
+    }
+    to {
+      transform: scaleX(1);
+    }
+  }
+
+  .kn-dots {
+    gap: 0.3rem;
+  }
+  .kn-dot {
+    width: 0.45rem;
+    height: 0.45rem;
+    border: 1px solid var(--kn-gold);
+    border-radius: 999px;
+  }
+  .kn-dot-on {
+    background: var(--kn-gold);
+  }
+
+  /* Badges and ruling counts */
+  .kn-badge {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.35rem;
+    padding: 0.1rem 0.6rem;
+    border: 1px solid var(--kn-parchment-edge);
+    border-radius: 999px;
+    font-size: 0.875rem;
+    color: var(--kn-ink-soft);
+  }
+  .kn-badge-gold {
+    border-color: var(--kn-gold);
+    background: color-mix(in oklab, var(--kn-gold-bright) 18%, transparent);
+    color: var(--kn-gilt);
+  }
+  .kn-count-kasher {
+    border-color: var(--kn-kasher);
+    color: var(--kn-kasher);
+  }
+  .kn-count-pasul {
+    border-color: var(--kn-pasul);
+    color: var(--kn-pasul);
+  }
+  .kn-count-safek {
+    border-color: var(--kn-safek);
+    color: var(--kn-safek);
+  }
+  .kn-count-yamus {
+    border-color: var(--kn-yamus);
+    color: var(--kn-yamus);
+  }
+
+  .kn-card-ruling {
+    border-color: color-mix(in oklab, var(--kn-gold) 65%, var(--kn-parchment-edge));
+    border-top: 3px double var(--kn-gold);
+  }
+
+  /* Rich text */
+  .kn-rich > * + * {
+    margin-top: 0.6em;
+  }
+  .kn-rich-heading {
+    font-weight: 600;
+    color: var(--kn-ink);
+  }
+  .kn-rich-list {
+    padding-inline-start: 1.2rem;
+    list-style: none;
+  }
+  .kn-rich-list > li {
+    position: relative;
+  }
+  .kn-rich-list > li + li {
+    margin-top: 0.3em;
+  }
+  .kn-rich-list > li::before {
+    content: '❧';
+    position: absolute;
+    inset-inline-start: -1.2rem;
+    font-size: 0.85em;
+    color: var(--kn-gold);
+  }
+
+  /* Case tabs */
+  .kn-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .kn-tab {
+    display: inline-flex;
+    max-width: 100%;
+    align-items: center;
+    gap: 0.55rem;
+    min-height: 2.75rem;
+    padding: 0.4rem 1rem 0.4rem 0.5rem;
+    border: 1px solid var(--kn-parchment-edge);
+    border-radius: 0.6rem;
+    background: color-mix(in oklab, var(--kn-parchment-deep) 35%, transparent);
+    color: var(--kn-ink-soft);
+    text-align: start;
+    transition:
+      border-color 0.2s ease,
+      background-color 0.2s ease;
+  }
+  .kn-tab:hover {
+    border-color: var(--kn-gold);
+    color: var(--kn-ink);
+  }
+  .kn-tab[aria-selected='true'] {
+    border-color: var(--kn-gold);
+    background: color-mix(in oklab, var(--kn-gold-bright) 22%, var(--kn-parchment-deep));
+    color: var(--kn-ink);
+    box-shadow: inset 0 -3px 0 var(--kn-gold);
+  }
+  .kn-tab-number {
+    display: inline-grid;
+    place-items: center;
+    width: 1.7rem;
+    height: 1.7rem;
+    border: 1px solid var(--kn-gold);
+    border-radius: 999px;
+    font-size: 0.85rem;
+    color: var(--kn-gilt);
+  }
+  .kn-tab[aria-selected='true'] .kn-tab-number {
+    background: var(--kn-gold);
+    color: var(--kn-on-gold);
+  }
+
+  /* View toggle */
+  .kn-segmented {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+    padding: 0.2rem;
+    border: 1px solid var(--kn-parchment-edge);
+    border-radius: 999px;
+    background: var(--kn-parchment);
+  }
+  .kn-segment > span {
+    display: inline-block;
+    padding: 0.25rem 0.85rem;
+    border-radius: 999px;
+    color: var(--kn-ink-soft);
+    cursor: pointer;
+  }
+  .kn-segment input:checked + span {
+    background: var(--kn-gold);
+    color: var(--kn-on-gold);
+  }
+  .kn-segment input:focus-visible + span {
+    outline: 2px solid var(--kn-focus);
+    outline-offset: 2px;
+  }
+  .kn-variant-switch {
+    font-size: 0.95rem;
+  }
+
+  /* Explore mode: a hypothetical branch plays on the stage. The stage itself
+     knows nothing of it; its card takes the hypothetical outline. */
+  .kn-stage-card[data-hypothetical] {
+    border-color: var(--kn-hypothetical);
+    box-shadow:
+      inset 0 0 0 1px var(--kn-hypothetical),
+      0 12px 30px -20px rgb(60 40 10 / 0.4);
+  }
+  .kn-suppose {
+    display: flex;
+    width: fit-content;
+    align-items: baseline;
+    gap: 0.45rem;
+    margin: 0 auto 0.5rem;
+    padding: 0.1rem 1rem;
+    border: 1px dashed var(--kn-hypothetical);
+    border-radius: 999px;
+    background: color-mix(in oklab, var(--kn-hypothetical) 8%, transparent);
+    color: var(--kn-hypothetical);
+    font-style: italic;
+  }
+  .kn-suppose :lang(he) {
+    font-style: normal;
+    font-weight: 500;
+  }
+  .kn-card-explore {
+    border-color: color-mix(in oklab, var(--kn-hypothetical) 55%, var(--kn-parchment-edge));
+    border-top: 3px double var(--kn-hypothetical);
+  }
+  .kn-crumbs {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.2rem 0.4rem;
+    color: var(--kn-ink-soft);
+  }
+  .kn-crumbs [aria-current] {
+    color: var(--kn-ink);
+    font-weight: 500;
+  }
+  .kn-crumb-sep {
+    color: var(--kn-ink-faint);
+  }
+  .kn-outcome {
+    margin-top: 0.9rem;
+    padding: 0.6rem 0.9rem;
+    border-inline-start: 3px solid var(--kn-hypothetical);
+    border-radius: 0 0.4rem 0.4rem 0;
+    background: color-mix(in oklab, var(--kn-hypothetical) 7%, transparent);
+  }
+  .kn-options {
+    display: grid;
+    gap: 0.45rem;
+    margin-top: 0.9rem;
+  }
+  .kn-option {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.5rem 0.85rem;
+    border: 1px solid var(--kn-parchment-edge);
+    border-radius: 0.5rem;
+    background: var(--kn-parchment);
+    color: var(--kn-ink);
+    transition: border-color 0.2s ease;
+  }
+  .kn-option::after {
+    content: '→';
+    color: var(--kn-hypothetical);
+  }
+  .kn-option:hover {
+    border-color: var(--kn-hypothetical);
+  }
+  .kn-button-explore {
+    border-color: var(--kn-hypothetical);
+    color: var(--kn-hypothetical);
+  }
+  .kn-button-explore:hover:not(:disabled) {
+    border-color: var(--kn-hypothetical);
+    background: color-mix(in oklab, var(--kn-hypothetical) 8%, var(--kn-parchment));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kn-auto-pending::after {
+    animation: none;
+    transform: none;
+  }
+  a.kn-card,
+  a.kn-card:hover {
+    transition: none;
+    transform: none;
+  }
+}

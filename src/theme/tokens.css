@@ -1,0 +1,190 @@
+/*
+ * Kinnim Illuminated — design tokens (provisional; see ./README.md).
+ *
+ * Raw values live in `--kn-*` custom properties on :root. They switch to the
+ * dark set when the OS prefers dark (unless <html data-theme="light">) or when
+ * <html data-theme="dark">. Tailwind v4 utilities read them through
+ * `@theme inline`, so `bg-parchment`, `text-ink`, `border-gold`, `fill-chatas`
+ * … follow the active theme with no `dark:` variants.
+ */
+
+:root {
+  color-scheme: light;
+
+  /* Surfaces: calf-skin vellum */
+  --kn-parchment: #f3ead6;
+  --kn-parchment-deep: #e8dabb;
+  --kn-parchment-edge: #d3bd8f;
+
+  /* Text: iron-gall ink */
+  --kn-ink: #2b2016;
+  --kn-ink-soft: #5a4834;
+  --kn-ink-faint: #8c7a62;
+
+  /* Gold leaf */
+  --kn-gold: #b58a2e;
+  --kn-gold-bright: #e0bd5c;
+  --kn-gold-deep: #7d5b16;
+
+  /* Container outlines (provisional). Boxes carry no fill; the kind is in the
+     outline's colour and line style. `--kn-box-mixture` is folium purple, the
+     manuscript pigment between minium and lapis. */
+  --kn-box-kein: var(--kn-ink-soft);
+  --kn-box-pile: var(--kn-ink-faint);
+  --kn-box-mixture: #7b3f86;
+  --kn-box-zone: var(--kn-gold);
+  --kn-box-highlight: var(--kn-gold);
+
+  /* Offering tints: minium (vermilion) for chatas, lapis for olah.
+     `*` = body colour, `*-wash` = pale fill, `*-line` = outline. */
+  --kn-chatas: #b8361f;
+  --kn-chatas-wash: #eba28e;
+  --kn-chatas-line: #6b190d;
+  --kn-olah: #2c4d9c;
+  --kn-olah-wash: #a9bbe9;
+  --kn-olah-line: #15275a;
+
+  /* Undesignated bird: natural dove taupe. Unknown bird: colourless slate. */
+  --kn-neutral: #a08b6c;
+  --kn-neutral-wash: #e7dbc4;
+  --kn-neutral-line: #56462e;
+  --kn-unknown: #8a8e95;
+  --kn-unknown-wash: #dcdcdc;
+  --kn-unknown-line: #45484f;
+
+  /* Desaturation target for pasul / yamus birds */
+  --kn-ash: #a39c92;
+
+  /* Ruling status */
+  --kn-kasher: #2f7a52;
+  --kn-pasul: #7d2a26;
+  --kn-safek: #a8691a;
+  --kn-yamus: #5f5a55;
+
+  /* Explore mode: the outline and banner of a hypothetical branch (teal, a
+     hue no bird, box or status uses). */
+  --kn-hypothetical: #276670;
+
+  --kn-focus: #1d5bd6;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    color-scheme: dark;
+    --kn-parchment: #17120c;
+    --kn-parchment-deep: #221a11;
+    --kn-parchment-edge: #463722;
+    --kn-ink: #efe3c9;
+    --kn-ink-soft: #c9b895;
+    --kn-ink-faint: #8f8068;
+    --kn-gold: #d5af57;
+    --kn-gold-bright: #f2d88a;
+    --kn-gold-deep: #9c7829;
+    --kn-box-mixture: #c79bd3;
+    --kn-chatas: #e56a4c;
+    --kn-chatas-wash: #86321f;
+    --kn-chatas-line: #ffbba7;
+    --kn-olah: #7896e3;
+    --kn-olah-wash: #2f4a8e;
+    --kn-olah-line: #cad7ff;
+    --kn-neutral: #b3a488;
+    --kn-neutral-wash: #352b1f;
+    --kn-neutral-line: #e8dcc5;
+    --kn-unknown: #999da5;
+    --kn-unknown-wash: #2b2d31;
+    --kn-unknown-line: #dadce0;
+    --kn-ash: #6c665e;
+    --kn-kasher: #63c08d;
+    --kn-pasul: #e5826f;
+    --kn-safek: #e6a74c;
+    --kn-yamus: #a59f97;
+    --kn-hypothetical: #72c2cc;
+    --kn-focus: #8fb3ff;
+  }
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --kn-parchment: #17120c;
+  --kn-parchment-deep: #221a11;
+  --kn-parchment-edge: #463722;
+  --kn-ink: #efe3c9;
+  --kn-ink-soft: #c9b895;
+  --kn-ink-faint: #8f8068;
+  --kn-gold: #d5af57;
+  --kn-gold-bright: #f2d88a;
+  --kn-gold-deep: #9c7829;
+  --kn-box-mixture: #c79bd3;
+  --kn-chatas: #e56a4c;
+  --kn-chatas-wash: #86321f;
+  --kn-chatas-line: #ffbba7;
+  --kn-olah: #7896e3;
+  --kn-olah-wash: #2f4a8e;
+  --kn-olah-line: #cad7ff;
+  --kn-neutral: #b3a488;
+  --kn-neutral-wash: #352b1f;
+  --kn-neutral-line: #e8dcc5;
+  --kn-unknown: #999da5;
+  --kn-unknown-wash: #2b2d31;
+  --kn-unknown-line: #dadce0;
+  --kn-ash: #6c665e;
+  --kn-kasher: #63c08d;
+  --kn-pasul: #e5826f;
+  --kn-safek: #e6a74c;
+  --kn-yamus: #a59f97;
+  --kn-hypothetical: #72c2cc;
+  --kn-focus: #8fb3ff;
+}
+
+@theme inline {
+  --color-parchment: var(--kn-parchment);
+  --color-parchment-deep: var(--kn-parchment-deep);
+  --color-parchment-edge: var(--kn-parchment-edge);
+  --color-ink: var(--kn-ink);
+  --color-ink-soft: var(--kn-ink-soft);
+  --color-ink-faint: var(--kn-ink-faint);
+  --color-gold: var(--kn-gold);
+  --color-gold-bright: var(--kn-gold-bright);
+  --color-gold-deep: var(--kn-gold-deep);
+  --color-box-kein: var(--kn-box-kein);
+  --color-box-pile: var(--kn-box-pile);
+  --color-box-mixture: var(--kn-box-mixture);
+  --color-box-zone: var(--kn-box-zone);
+  --color-chatas: var(--kn-chatas);
+  --color-chatas-wash: var(--kn-chatas-wash);
+  --color-chatas-line: var(--kn-chatas-line);
+  --color-olah: var(--kn-olah);
+  --color-olah-wash: var(--kn-olah-wash);
+  --color-olah-line: var(--kn-olah-line);
+  --color-bird-neutral: var(--kn-neutral);
+  --color-bird-neutral-wash: var(--kn-neutral-wash);
+  --color-bird-neutral-line: var(--kn-neutral-line);
+  --color-bird-unknown: var(--kn-unknown);
+  --color-bird-unknown-wash: var(--kn-unknown-wash);
+  --color-bird-unknown-line: var(--kn-unknown-line);
+  --color-ash: var(--kn-ash);
+  --color-kasher: var(--kn-kasher);
+  --color-pasul: var(--kn-pasul);
+  --color-safek: var(--kn-safek);
+  --color-yamus: var(--kn-yamus);
+  --color-hypothetical: var(--kn-hypothetical);
+  --color-focus: var(--kn-focus);
+}
+
+@theme {
+  --font-latin: 'EB Garamond', 'Frank Ruhl Libre', Georgia, 'Times New Roman', serif;
+  --font-hebrew: 'Frank Ruhl Libre', 'EB Garamond', 'Times New Roman', serif;
+  --font-serif: var(--font-latin);
+}
+
+/* `dark:` follows the same rule as the tokens (OS preference, overridable). */
+@custom-variant dark {
+  &:where([data-theme='dark'], [data-theme='dark'] *) {
+    @slot;
+  }
+  @media (prefers-color-scheme: dark) {
+    &:where(:root:not([data-theme='light']), :root:not([data-theme='light']) *) {
+      @slot;
+    }
+  }
+}
