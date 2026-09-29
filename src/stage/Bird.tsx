@@ -38,7 +38,7 @@ function TintEmblem({ tint, r }: { tint: 'chatas' | 'olah'; r: number }) {
         textAnchor="middle"
         lang="he"
         fontFamily="var(--font-hebrew)"
-        fontWeight={700}
+        fontWeight={400}
         fontSize={r * 1.15}
         style={{ fill: 'var(--kn-parchment)' }}
       >

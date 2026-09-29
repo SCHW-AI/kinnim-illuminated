@@ -1,6 +1,6 @@
 import { EN_TRACKING, LABEL_HALO, TYPE, type MeasureLabel } from './layout';
 
-/** The label font stacks, as the page resolves them (`--font-hebrew`: Hadasim CLM first). */
+/** The label font stacks, as the page resolves them (`--font-hebrew`: Ezra SIL first). */
 function labelFamilies() {
   const root = getComputedStyle(document.documentElement);
   return {
@@ -10,7 +10,7 @@ function labelFamilies() {
 }
 
 /**
- * Asks the browser to load the faces labels are drawn in (Hadasim CLM at the
+ * Asks the browser to load the faces labels are drawn in (Ezra SIL at the
  * label weights in `TYPE`, EB Garamond italic 400), resolving once they are
  * ready; undefined where
  * there is no `document.fonts` (jsdom, SSR). A canvas never triggers a web

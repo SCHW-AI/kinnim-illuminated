@@ -2,7 +2,7 @@
 @import '@fontsource/eb-garamond/latin-400-italic.css';
 @import '@fontsource/eb-garamond/latin-500.css';
 @import '@fontsource/eb-garamond/latin-600.css';
-@import './theme/fonts/hadasim-clm/hadasim-clm.css';
+@import './theme/fonts/ezra-sil/ezra-sil.css';
 @import 'tailwindcss';
 @import './theme/tokens.css';
 
@@ -31,19 +31,27 @@
   }
 
   /*
-   * Hebrew: Hadasim CLM, in its two real weights. Weight is inherited: 400
-   * and 500 set the Regular, 600 and up the Bold, so nothing is synthesized.
-   * Hebrew is always upright, even inside italic English: Hebrew has no
-   * italic, and the site ships no oblique.
-   *
-   * Inline Hebrew is not rescaled: at 1 em Hadasim's letters stand 0.572 em,
-   * between Garamond's x-height (0.405 em) and capitals (0.653 em), and its
-   * darker colour already holds its own beside the lighter Latin.
+   * Hebrew: Ezra SIL, which has one weight. Synthesis is off, so a bolder
+   * context never fakes a bold (it would smear the nikud): Hebrew emphasis is
+   * size and colour. Hebrew is always upright, even inside italic English:
+   * Hebrew has no italic.
    */
   :lang(he),
   [dir='rtl'] {
     font-family: var(--font-hebrew);
     font-style: normal;
+    font-synthesis: none;
+  }
+
+  /*
+   * Ezra's letters stand 0.705 em, above Garamond's capitals (0.653 em), so
+   * Hebrew set among Latin is scaled to 0.85 em: about 0.6 em tall, between
+   * Garamond's x-height (0.405 em) and its capitals. Only the outermost Hebrew
+   * element is scaled, so nested runs never compound; SVG text is sized by the
+   * stage, and the mishnah panel sets its own size.
+   */
+  :where([lang='he'], [dir='rtl']):not(svg *, :where([lang='he'], [dir='rtl']) *) {
+    font-size: 0.85em;
   }
 
   :focus-visible {
@@ -130,8 +138,8 @@
   }
   /* Vocalized Hebrew: the line height leaves room for the marks above and below. */
   .kn-mishnah-text {
-    font-size: 1.45rem;
-    line-height: 1.9;
+    font-size: 1.3rem;
+    line-height: 2.1;
     text-align: start;
     color: var(--kn-ink);
   }
@@ -140,14 +148,14 @@
       padding: 1.4rem 2rem 1.75rem;
     }
     .kn-mishnah-text {
-      font-size: 1.7rem;
+      font-size: 1.5rem;
       text-align: justify;
       text-align-last: start;
     }
   }
+  /* The first word is gilded and larger (Ezra SIL has no bold). */
   .kn-opening-word {
-    font-size: 1.15em;
-    font-weight: 700;
+    font-size: 1.2em;
     color: var(--kn-gilt);
   }
 
@@ -417,9 +425,6 @@
     background: color-mix(in oklab, var(--kn-hypothetical) 8%, transparent);
     color: var(--kn-hypothetical);
     font-style: italic;
-  }
-  .kn-suppose :lang(he) {
-    font-weight: 700;
   }
   .kn-card-explore {
     border-color: color-mix(in oklab, var(--kn-hypothetical) 55%, var(--kn-parchment-edge));

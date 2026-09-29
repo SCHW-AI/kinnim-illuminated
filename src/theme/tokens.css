@@ -172,8 +172,8 @@
 }
 
 @theme {
-  --font-latin: 'EB Garamond', 'Hadasim CLM', Georgia, 'Times New Roman', serif;
-  --font-hebrew: 'Hadasim CLM', 'EB Garamond', serif;
+  --font-latin: 'EB Garamond', 'Ezra SIL', Georgia, 'Times New Roman', serif;
+  --font-hebrew: 'Ezra SIL', 'EB Garamond', serif;
   --font-serif: var(--font-latin);
 }
 

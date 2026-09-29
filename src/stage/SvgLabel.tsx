@@ -9,8 +9,8 @@ interface Metrics {
 }
 
 /**
- * A RichLabel as SVG text: Hebrew on the first line (right-to-left, Hadasim
- * CLM), English beneath it (EB Garamond). Centred on `x`; `y` is the first
+ * A RichLabel as SVG text: Hebrew on the first line (right-to-left, Ezra
+ * SIL), English beneath it (EB Garamond). Centred on `x`; `y` is the first
  * baseline. A parchment halo keeps the text legible over artwork.
  *
  * The English line always has a left-to-right base, even when it starts with a

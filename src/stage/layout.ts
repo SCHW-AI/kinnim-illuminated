@@ -133,15 +133,17 @@ export const EN_TRACKING = 0.02;
 
 /**
  * Upper bounds on one character's advance, in em, for every font in the label
- * stacks (`--font-hebrew`: Hadasim CLM, then EB Garamond; `--font-latin`; and
- * their fallbacks). The Hebrew line is upright, at 400 or 700 (Hadasim CLM's
- * two weights; labels use 400); the English line is italic 400. Measured in
- * Chrome (2026-09-28) with canvas `measureText` over every assigned code point
- * in each range, and every combining mark alone and on every Hebrew letter, at
- * 100 px and at the label sizes (11, 12.5, 13, 16 px), then rounded up:
- * - `hebrew`, U+0590-U+05FF: widest ׯ (U+05EF, which Hadasim CLM lacks: a
- *   fallback glyph) 0.844 em; Hadasim's letters up to ש 0.694 em (Bold 0.746).
- *   A combining mark adds at most 0.061 em to its base (dagesh on ז, Bold).
+ * stacks (`--font-hebrew`: Ezra SIL, then EB Garamond; `--font-latin`; and
+ * their fallbacks). The Hebrew line is upright at 400 or 700 (labels use 400;
+ * Ezra SIL has one weight and the page never fakes a bold, but a canvas does,
+ * so 700 is measured as the wider case); the English line is italic 400.
+ * Measured in Chrome (2026-09-29) with canvas `measureText` over every
+ * assigned code point in each range, and every combining mark alone and on
+ * every Hebrew letter, at 100 px and at the label sizes (11, 12.5, 13, 16 px),
+ * then rounded up:
+ * - `hebrew`, U+0590-U+05FF: widest ׯ (U+05EF, which Ezra SIL lacks: a
+ *   fallback glyph) 0.844 em; Ezra's letters up to ש 0.698 em.
+ *   A combining mark adds at most 0.052 em to its base (dagesh on ז).
  * - `latin`, U+0000-U+00FF: widest italic W 1.067 em (upright W 0.986 in a
  *   Hebrew line, where Latin letters fall through to EB Garamond).
  * - `other`, anything else sampled (Latin Extended, punctuation, currency,
@@ -154,11 +156,12 @@ export const MAX_ADVANCE_EM = { hebrew: 0.85, latin: 1.08, other: 1.4 } as const
  * either end (measured as above). A centred line can overhang this much at
  * each end. Widest outside the marks: italic ⁄ (U+2044) 0.456 em at 12.5 px;
  * letters up to italic ƴ (U+01B4, a fallback glyph) 0.37 em. A mark reaches
- * further but brings its own 0.85 em count, which covers the excess: the shin
- * dot (U+05C1) alone draws 0.818 em past its zero advance at 11 px, within its
- * 0.85 plus both ends' 0.46; on a letter it reaches at most 0.527 em (on ו).
+ * further but brings its own 0.85 em count, which covers the excess: the
+ * yetiv (U+059A) alone draws 0.909 em past its zero advance at 11 px (0.8 em
+ * unbolded), within its 0.85 plus both ends' 0.5; on a letter a mark reaches
+ * at most 0.481 em (the shin dot on י).
  */
-export const MAX_OVERHANG_EM = 0.46;
+export const MAX_OVERHANG_EM = 0.5;
 
 /**
  * The default `MeasureLabel`: an upper bound on a line's drawn width in the

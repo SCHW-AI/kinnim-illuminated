@@ -177,32 +177,36 @@ describe('layoutScene', () => {
   );
 
   test('the default measurer never reports less than the widest strings measure in the shipped fonts', () => {
-    // Drawn widths measured in Chrome (2026-09-28) with the fonts (Hadasim CLM,
-    // EB Garamond), sizes, weights (Hebrew 400 and 700, English italic 400),
-    // tracking and halo `SvgLabel` uses: the larger of SVG getComputedTextLength
-    // widened to the canvas ink extent, and the canvas advance plus the
-    // overhang at the worse end on both sides, plus the 3.5 px halo.
+    // Drawn widths measured in Chrome (2026-09-29) with the fonts (Ezra SIL,
+    // EB Garamond), sizes, weights (Hebrew 400, and 700, which a canvas draws
+    // as a synthetic bold; English italic 400), tracking and halo `SvgLabel`
+    // uses: the larger of SVG getComputedTextLength widened to the canvas ink
+    // extent, and the canvas advance plus the overhang at the worse end on both
+    // sides, plus the 3.5 px halo.
     const measured: [LabelLine, number][] = [
       [{ text: 'WWWWWWWWWW', lang: 'en', size: 11, weight: 400 }, 127.6],
       [{ text: 'MMMMMMMMMM', lang: 'en', size: 11, weight: 400 }, 116.91],
       [{ text: 'WWWWWWWWWW', lang: 'en', size: 12.5, weight: 400 }, 144.7],
-      [{ text: '\u2044'.repeat(10), lang: 'en', size: 12.5, weight: 400 }, 20.4],
+      [{ text: '⁄'.repeat(10), lang: 'en', size: 12.5, weight: 400 }, 20.4],
       [{ text: 'WWWWWWWWWW', lang: 'he', size: 13, weight: 400 }, 124.76],
       [{ text: 'MMMMMMMMMM', lang: 'he', size: 16, weight: 700 }, 150.24],
-      [{ text: 'ש'.repeat(10), lang: 'he', size: 13, weight: 400 }, 95.76],
-      [{ text: 'ש'.repeat(10), lang: 'he', size: 13, weight: 700 }, 103.04],
-      [{ text: 'ש'.repeat(21), lang: 'he', size: 16, weight: 700 }, 256.16],
-      // Yod triangle (U+05EF), not in Hadasim CLM: the widest Hebrew advance.
-      [{ text: '\u05EF'.repeat(10), lang: 'he', size: 16, weight: 700 }, 140.5],
-      [{ text: 'שָׁ'.repeat(10), lang: 'he', size: 13, weight: 400 }, 95.76],
-      [{ text: 'קן סתומה וחטאת מוגדרת', lang: 'he', size: 16, weight: 400 }, 161.64],
-      [{ text: 'קן סתומה וחטאת מוגדרת', lang: 'he', size: 16, weight: 700 }, 176.01],
-      [{ text: 'חַטָּאת/עוֹלָה', lang: 'he', size: 13, weight: 400 }, 65.6],
-      [{ text: 'קִנִּים', lang: 'he', size: 16, weight: 400 }, 33.21],
-      // The shin dot (U+05C1) with no base letter, and on ו: the widest overhangs.
-      [{ text: '\u05C1', lang: 'he', size: 13, weight: 400 }, 23.5],
-      [{ text: '\u05C1', lang: 'he', size: 16, weight: 400 }, 27.5],
-      [{ text: '\u05D5\u05C1', lang: 'he', size: 13, weight: 400 }, 19.71],
+      [{ text: 'ש'.repeat(10), lang: 'he', size: 13, weight: 400 }, 94.28],
+      [{ text: 'ש'.repeat(10), lang: 'he', size: 13, weight: 700 }, 96.27],
+      [{ text: 'ש'.repeat(21), lang: 'he', size: 16, weight: 700 }, 240.11],
+      // Yod triangle (U+05EF), not in Ezra SIL: the widest Hebrew advance.
+      [{ text: 'ׯ'.repeat(10), lang: 'he', size: 16, weight: 700 }, 140.5],
+      [{ text: 'שָׁ'.repeat(10), lang: 'he', size: 13, weight: 400 }, 94.28],
+      [{ text: 'קן סתומה וחטאת מוגדרת', lang: 'he', size: 16, weight: 400 }, 185.06],
+      [{ text: 'קן סתומה וחטאת מוגדרת', lang: 'he', size: 16, weight: 700 }, 187.06],
+      [{ text: 'חַטָּאת/עוֹלָה', lang: 'he', size: 13, weight: 400 }, 73.45],
+      [{ text: 'קִנִּים', lang: 'he', size: 16, weight: 400 }, 35.58],
+      // Marks with no base letter: the yetiv (U+059A), the widest overhang, and
+      // the shin dot (U+05C1); and the shin dot on ו.
+      [{ text: '֚', lang: 'he', size: 11, weight: 700 }, 23.5],
+      [{ text: '֚', lang: 'he', size: 12.5, weight: 400 }, 23.5],
+      [{ text: 'ׁ', lang: 'he', size: 13, weight: 400 }, 21.5],
+      [{ text: 'ׁ', lang: 'he', size: 16, weight: 400 }, 25.5],
+      [{ text: 'וׁ', lang: 'he', size: 13, weight: 400 }, 13.88],
     ];
     for (const [line, drawn] of measured)
       expect(conservativeLabelWidth(line), line.text).toBeGreaterThanOrEqual(drawn);

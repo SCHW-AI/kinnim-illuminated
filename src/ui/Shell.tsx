@@ -38,19 +38,19 @@ export function Shell({ children }: { children: ReactNode }) {
           >
             {textSource}
           </a>
-          . Hebrew font: Hadasim CLM, from the{' '}
+          . Hebrew font:{' '}
           <a
-            href="https://culmus.sourceforge.io/"
+            href="https://software.sil.org/ezra/"
             className="text-ink-soft underline decoration-parchment-edge underline-offset-4 hover:decoration-gold"
           >
-            Culmus project
+            Ezra SIL
           </a>{' '}
-          (GPL-2 with font exception;{' '}
+          by SIL International (
           <a
-            href="https://sourceforge.net/projects/culmus/files/culmus/0.140/"
+            href="https://openfontlicense.org/"
             className="text-ink-soft underline decoration-parchment-edge underline-offset-4 hover:decoration-gold"
           >
-            source
+            SIL Open Font License
           </a>
           ).
         </p>

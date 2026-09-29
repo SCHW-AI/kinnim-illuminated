@@ -66,7 +66,7 @@ function useLabelMeasurer(): MeasureLabel | undefined {
       if (live) setMeasure(() => createCanvasMeasurer());
     };
     // `ready` covers fonts that loaded between the first measurement and now;
-    // `loadLabelFonts` makes sure Hadasim CLM loads even before any Hebrew is drawn.
+    // `loadLabelFonts` makes sure Ezra SIL loads even before any Hebrew is drawn.
     void fonts.ready.then(refresh);
     void loadLabelFonts()?.then(refresh, () => undefined);
     fonts.addEventListener('loadingdone', refresh);

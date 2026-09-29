@@ -129,30 +129,29 @@ backgrounds", they are the next thing to flatten.
 ## Type
 
 - **EB Garamond** (Latin) is the body and UI face. Italic is used for captions.
-- **Hadasim CLM** (Hebrew, from the Culmus project) is every piece of Hebrew:
-  the mishnah text, headings, tabs, the logo, rulings, count chips and the
-  stage's SVG labels. It is self-hosted from `fonts/hadasim-clm/` (the whole
-  fonts as WOFF2; source, version and licence in its README) and applied to
+- **Ezra SIL** (Hebrew, by SIL International) is every piece of Hebrew: the
+  mishnah text, headings, tabs, the logo, rulings, count chips and the stage's
+  SVG labels. It is self-hosted from `fonts/ezra-sil/` (SIL's own WOFF,
+  unaltered; source, version and licence in its README) and applied to
   `:lang(he)` and `[dir=rtl]`. `--font-hebrew` is
-  `'Hadasim CLM', 'EB Garamond', serif`; the faces' `unicode-range` sends Latin
+  `'Ezra SIL', 'EB Garamond', serif`; the face's `unicode-range` sends Latin
   letters in a Hebrew run on to Garamond. The Latin stack also falls back to
-  Hadasim CLM, so stray Hebrew renders correctly.
-- **Two real weights.** Regular (400) and Bold (700) are shipped, so nothing is
-  synthesized: Hebrew inherits its context's weight, 400 and 500 set the
-  Regular and 600 up the Bold (the Hebrew in a semibold rich-text heading is
-  bold). Bold is used on purpose in three places only: the gilded opening word
-  of the mishnah, the "נניח" of the Suppose chip, and the ח/ע emblems on the
-  stage. Stage labels stay Regular at both sizes; a bold 13 px label repeated
-  across a grid of birds is too heavy.
+  Ezra SIL, so stray Hebrew renders correctly. The author chose it over
+  Hadasim CLM, whose nikud on ט did not sit well.
+- **One weight.** Ezra SIL has only a Regular, and Hebrew has
+  `font-synthesis: none`, so the browser never fakes a bold (a synthetic bold
+  smears the nikud). Hebrew in a bold context (a semibold rich-text heading,
+  the gold button) draws Regular. Emphasis is carried by size and colour: the
+  mishnah's opening word is gilded and 1.2 em.
 - **Always upright.** Hebrew has `font-style: normal`, even inside italic
-  English (captions, the English line of a stage label), and the obliques are
-  not shipped.
-- **Sizes.** Hadasim CLM's letters stand 0.572 em tall, between Garamond's
-  x-height (0.405 em) and capitals (0.653 em), and its colour is darker than
-  Garamond's, so inline Hebrew is set at 1 em with no rescaling. The mishnah
-  panel is 1.45 rem (1.7 rem from 640 px) with a line height of 1.9 for the
-  marks above and below the letters. Stage labels are 16 px (captions) and
-  13 px (birds).
+  English (captions, the English line of a stage label).
+- **Sizes.** Ezra's letters stand 0.705 em tall, above Garamond's capitals
+  (0.653 em), so Hebrew among Latin is scaled to 0.85 em (about 0.6 em tall,
+  between Garamond's x-height, 0.405 em, and its capitals). Only the outermost
+  Hebrew element is scaled, so nested runs never compound; SVG text is not.
+  The mishnah panel is 1.3 rem (1.5 rem from 640 px) with a line height of 2.1
+  for the marks above and below the letters. Stage labels are 16 px (captions)
+  and 13 px (birds).
 - Garamond loads its `latin` subset only (weights 400/500/600 and 400 italic).
 
 ## Open questions for the author
